@@ -7,14 +7,14 @@ export interface HeaderProps {
 
 const Header: React.FunctionComponent<HeaderProps> = ({ title }) => {
 	return (
-		<View style={styles.header}>
-			<Text style={styles.headerTitle}>{title}</Text>
+		<View style={styles.container}>
+			<Text style={styles.title}>{title}</Text>
 		</View>
 	);
 };
 
 const styles = StyleSheet.create({
-	header: {
+	container: {
 		width: "100%",
 		height: 90,
 		paddingTop: 36,
@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 		justifyContent: "center",
 	},
-	headerTitle: {
+	title: {
 		color: "black",
 		fontSize: 18,
 	},
