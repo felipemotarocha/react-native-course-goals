@@ -7,6 +7,7 @@ import {
 	Button,
 	TouchableWithoutFeedback,
 	Keyboard,
+	Alert,
 } from "react-native";
 import Card from "../components/Card";
 import CustomInput from "../components/CustomInput";
@@ -16,6 +17,8 @@ export interface StartGameScreenProps {}
 
 const StartGameScreen: React.FunctionComponent<StartGameScreenProps> = () => {
 	const [number, setNumber] = useState("");
+	const [confirmed, setConfirmed] = useState(false);
+	const [selectedNumber, setSelectedNumber] = useState<number>();
 
 	const handleNumberChange = (value: string) => {
 		setNumber(value.replace(/[^0-9]/g, ""));
@@ -24,6 +27,33 @@ const StartGameScreen: React.FunctionComponent<StartGameScreenProps> = () => {
 	const handleKeyboardDismiss = () => {
 		Keyboard.dismiss();
 	};
+
+	const handleInputReset = () => {
+		setNumber("");
+		setConfirmed(false);
+	};
+
+	const handleConfirm = () => {
+		const chosenNumber = parseInt(number);
+		if (isNaN(chosenNumber) || chosenNumber <= 0 || chosenNumber > 99) {
+			Alert.alert("Invalid number!", "Number has to be between 1 and 99.", [
+				{
+					text: "Okay",
+					style: "destructive",
+					onPress: handleInputReset,
+				},
+			]);
+			return;
+		}
+		setConfirmed(true);
+		setSelectedNumber(chosenNumber);
+		setNumber("");
+	};
+
+	let confirmedOutput;
+	if (confirmed) {
+		confirmedOutput = <Text>Chosen number: {selectedNumber}</Text>;
+	}
 
 	return (
 		<TouchableWithoutFeedback onPress={handleKeyboardDismiss}>
@@ -45,19 +75,20 @@ const StartGameScreen: React.FunctionComponent<StartGameScreenProps> = () => {
 						<View style={styles.button}>
 							<Button
 								title="Reset"
-								onPress={() => {}}
+								onPress={handleInputReset}
 								color={colors.secondary}
 							/>
 						</View>
 						<View style={styles.button}>
 							<Button
 								title="Confirm"
-								onPress={() => {}}
+								onPress={handleConfirm}
 								color={colors.primary}
 							/>
 						</View>
 					</View>
 				</Card>
+				{confirmedOutput}
 			</View>
 		</TouchableWithoutFeedback>
 	);
