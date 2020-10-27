@@ -14,9 +14,13 @@ import CustomInput from "../components/CustomInput";
 import NumberContainer from "../components/NumberContainer";
 import colors from "../constants/colors";
 
-export interface StartGameScreenProps {}
+export interface StartGameScreenProps {
+	startGame: (selectedNumber: number) => void;
+}
 
-const StartGameScreen: React.FunctionComponent<StartGameScreenProps> = () => {
+const StartGameScreen: React.FunctionComponent<StartGameScreenProps> = ({
+	startGame,
+}) => {
 	const [number, setNumber] = useState("");
 	const [confirmed, setConfirmed] = useState(false);
 	const [selectedNumber, setSelectedNumber] = useState<number>();
@@ -58,7 +62,7 @@ const StartGameScreen: React.FunctionComponent<StartGameScreenProps> = () => {
 			<Card style={styles.summaryContainer}>
 				<Text>You selected:</Text>
 				<NumberContainer>{selectedNumber}</NumberContainer>
-				<Button title="START GAME!" onPress={() => {}} />
+				<Button title="START GAME!" onPress={startGame} />
 			</Card>
 		);
 	}
