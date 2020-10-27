@@ -62,7 +62,10 @@ const StartGameScreen: React.FunctionComponent<StartGameScreenProps> = ({
 			<Card style={styles.summaryContainer}>
 				<Text>You selected:</Text>
 				<NumberContainer>{selectedNumber}</NumberContainer>
-				<Button title="START GAME!" onPress={startGame} />
+				<Button
+					title="START GAME!"
+					onPress={() => startGame(selectedNumber as any)}
+				/>
 			</Card>
 		);
 	}
