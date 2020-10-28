@@ -9,9 +9,11 @@ import {
 	Keyboard,
 	Alert,
 } from "react-native";
+import BodyText from "../components/BodyText";
 import Card from "../components/Card";
 import CustomInput from "../components/CustomInput";
 import NumberContainer from "../components/NumberContainer";
+import TitleText from "../components/TItleText";
 import colors from "../constants/colors";
 
 export interface StartGameScreenProps {
@@ -73,9 +75,9 @@ const StartGameScreen: React.FunctionComponent<StartGameScreenProps> = ({
 	return (
 		<TouchableWithoutFeedback onPress={handleKeyboardDismiss}>
 			<View style={styles.container}>
-				<Text style={styles.title}>Start a new game!</Text>
+				<TitleText style={styles.title}>Start a new game!</TitleText>
 				<Card style={styles.cardContainer}>
-					<Text>Select a number</Text>
+					<BodyText>Select a number</BodyText>
 					<CustomInput
 						style={styles.input}
 						blurOnSubmit
@@ -116,9 +118,7 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 	},
 	title: {
-		fontSize: 20,
 		marginVertical: 10,
-		fontFamily: "open-sans-bold",
 	},
 	cardContainer: {
 		width: 300,

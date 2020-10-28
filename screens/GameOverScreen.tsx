@@ -1,5 +1,7 @@
 import React from "react";
-import { View, Text, StyleSheet, Button } from "react-native";
+import { View, StyleSheet, Button } from "react-native";
+
+import BodyText from "../components/BodyText";
 
 export interface GameOverScreenProps {
 	rounds: number | undefined;
@@ -14,9 +16,9 @@ const GameOverScreen: React.FunctionComponent<GameOverScreenProps> = ({
 }) => {
 	return (
 		<View style={styles.container}>
-			<Text>The game is over!</Text>
-			<Text>Number of rounds: {rounds}</Text>
-			<Text>Number was: {userNumber}</Text>
+			<BodyText>The game is over!</BodyText>
+			<BodyText>Number of rounds: {rounds}</BodyText>
+			<BodyText>Number was: {userNumber}</BodyText>
 			<Button title="New game" onPress={restart}></Button>
 		</View>
 	);
