@@ -22,6 +22,13 @@ const generateRandomBetween: any = (
 	}
 };
 
+const renderListItem = (value: number, rounds: number) => (
+	<View key={value} style={styles.listItem}>
+		<BodyText>#{rounds}</BodyText>
+		<BodyText>{value}</BodyText>
+	</View>
+);
+
 export interface GameScreenProps {
 	userChoice: number;
 	gameOver: (rounds: number) => void;
@@ -60,7 +67,7 @@ const GameScreen: React.FunctionComponent<GameScreenProps> = ({
 		if (direction === "lower") {
 			currentHigh.current = currentGuess;
 		} else {
-			currentLow.current = currentGuess;
+			currentLow.current = currentGuess + 1;
 		}
 		const nextNumber = generateRandomBetween(
 			currentLow.current,
@@ -83,13 +90,13 @@ const GameScreen: React.FunctionComponent<GameScreenProps> = ({
 					<Ionicons name="md-add" size={24} color="white" />
 				</MainButton>
 			</Card>
-			<ScrollView>
-				{pastGuesses.map((guess, index) => (
-					<View key={index}>
-						<Text>{guess}</Text>
-					</View>
-				))}
-			</ScrollView>
+			<View style={styles.listContainer}>
+				<ScrollView>
+					{pastGuesses.map((guess, index) =>
+						renderListItem(guess, pastGuesses.length - index)
+					)}
+				</ScrollView>
+			</View>
 		</View>
 	);
 };
@@ -107,6 +114,19 @@ const styles = StyleSheet.create({
 		marginTop: 20,
 		width: 300,
 		maxWidth: "80%",
+	},
+	listContainer: {
+		width: "80%",
+		flex: 1,
+	},
+	listItem: {
+		borderColor: "#CCCCCC",
+		borderWidth: 1,
+		padding: 15,
+		marginVertical: 10,
+		backgroundColor: "#FFFFFF",
+		flexDirection: "row",
+		justifyContent: "space-around",
 	},
 });
 
