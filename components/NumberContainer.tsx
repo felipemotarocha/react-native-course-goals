@@ -1,7 +1,5 @@
 import React, { ReactNode } from "react";
-import { View, StyleSheet } from "react-native";
-
-import BodyText from "./BodyText";
+import { View, StyleSheet, Text } from "react-native";
 
 import colors from "../constants/colors";
 
@@ -14,7 +12,7 @@ const NumberContainer: React.FunctionComponent<NumberContainerProps> = ({
 }) => {
 	return (
 		<View style={styles.container}>
-			<BodyText style={styles.number}>{children}</BodyText>
+			<Text style={styles.number}>{children}</Text>
 		</View>
 	);
 };
