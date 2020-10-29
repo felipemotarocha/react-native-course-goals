@@ -91,7 +91,7 @@ const GameScreen: React.FunctionComponent<GameScreenProps> = ({
 				</MainButton>
 			</Card>
 			<View style={styles.listContainer}>
-				<ScrollView>
+				<ScrollView contentContainerStyle={styles.listContent}>
 					{pastGuesses.map((guess, index) =>
 						renderListItem(guess, pastGuesses.length - index)
 					)}
@@ -119,6 +119,11 @@ const styles = StyleSheet.create({
 		width: "80%",
 		flex: 1,
 	},
+	listContent: {
+		flexGrow: 1,
+		alignItems: "center",
+		justifyContent: "center",
+	},
 	listItem: {
 		borderColor: "#CCCCCC",
 		borderWidth: 1,
@@ -127,6 +132,7 @@ const styles = StyleSheet.create({
 		backgroundColor: "#FFFFFF",
 		flexDirection: "row",
 		justifyContent: "space-around",
+		width: "60%",
 	},
 });
 
