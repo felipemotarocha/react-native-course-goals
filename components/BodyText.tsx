@@ -3,7 +3,7 @@ import { Text, StyleSheet, TextProps, TextStyle } from "react-native";
 
 export interface BodyTextProps extends TextProps {
 	children: ReactNode;
-	style: TextStyle;
+	style?: TextStyle;
 }
 
 const BodyText: React.FunctionComponent<BodyTextProps> = ({

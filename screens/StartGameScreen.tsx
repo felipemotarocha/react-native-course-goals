@@ -9,12 +9,15 @@ import {
 	Keyboard,
 	Alert,
 } from "react-native";
+
+import colors from "../constants/colors";
+
 import BodyText from "../components/BodyText";
 import Card from "../components/Card";
+import MainButton from "../components/MainButton";
 import CustomInput from "../components/CustomInput";
 import NumberContainer from "../components/NumberContainer";
 import TitleText from "../components/TItleText";
-import colors from "../constants/colors";
 
 export interface StartGameScreenProps {
 	startGame: (selectedNumber: number) => void;
@@ -64,10 +67,9 @@ const StartGameScreen: React.FunctionComponent<StartGameScreenProps> = ({
 			<Card style={styles.summaryContainer}>
 				<Text>You selected:</Text>
 				<NumberContainer>{selectedNumber}</NumberContainer>
-				<Button
-					title="START GAME!"
-					onPress={() => startGame(selectedNumber as any)}
-				/>
+				<MainButton onPress={() => startGame(selectedNumber as any)}>
+					START GAME!
+				</MainButton>
 			</Card>
 		);
 	}

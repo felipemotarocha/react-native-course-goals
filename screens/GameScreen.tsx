@@ -4,6 +4,7 @@ import { View, Text, StyleSheet, Button, Alert } from "react-native";
 import Card from "../components/Card";
 import BodyText from "../components/BodyText";
 import NumberContainer from "../components/NumberContainer";
+import MainButton from "../components/MainButton";
 
 const generateRandomBetween: any = (
 	min: number,
@@ -76,8 +77,10 @@ const GameScreen: React.FunctionComponent<GameScreenProps> = ({
 			<BodyText>Opponent's guess:</BodyText>
 			<NumberContainer>{currentGuess}</NumberContainer>
 			<Card style={styles.buttonsContainer}>
-				<Button title="Lower" onPress={() => handleNextGuess("lower")} />
-				<Button title="Greater" onPress={() => handleNextGuess("greater")} />
+				<MainButton onPress={() => handleNextGuess("lower")}>Lower</MainButton>
+				<MainButton onPress={() => handleNextGuess("greater")}>
+					Greater
+				</MainButton>
 			</Card>
 		</View>
 	);
