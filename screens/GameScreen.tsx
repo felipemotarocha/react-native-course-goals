@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
-import { View, Text, StyleSheet, Button, Alert } from "react-native";
+import { View, StyleSheet, Alert } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 
 import Card from "../components/Card";
 import BodyText from "../components/BodyText";
@@ -49,7 +50,6 @@ const GameScreen: React.FunctionComponent<GameScreenProps> = ({
 			(direction === "lower" && currentGuess < userChoice) ||
 			(direction === "greater" && currentGuess > userChoice)
 		) {
-			console.log("wrong");
 			Alert.alert("Don't lie!", "You know that this is wrong...", [
 				{
 					text: "Sorry!",
@@ -77,9 +77,11 @@ const GameScreen: React.FunctionComponent<GameScreenProps> = ({
 			<BodyText>Opponent's guess:</BodyText>
 			<NumberContainer>{currentGuess}</NumberContainer>
 			<Card style={styles.buttonsContainer}>
-				<MainButton onPress={() => handleNextGuess("lower")}>Lower</MainButton>
+				<MainButton onPress={() => handleNextGuess("lower")}>
+					<Ionicons name="md-remove" size={24} color="white" />
+				</MainButton>
 				<MainButton onPress={() => handleNextGuess("greater")}>
-					Greater
+					<Ionicons name="md-add" size={24} color="white" />
 				</MainButton>
 			</Card>
 		</View>
