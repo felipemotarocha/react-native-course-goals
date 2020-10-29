@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { View, StyleSheet, Alert } from "react-native";
+import { View, StyleSheet, Alert, ScrollView, Text } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 import Card from "../components/Card";
@@ -31,17 +31,16 @@ const GameScreen: React.FunctionComponent<GameScreenProps> = ({
 	userChoice,
 	gameOver,
 }) => {
-	const [currentGuess, setCurrentGuess] = useState(
-		generateRandomBetween(1, 100, userChoice)
-	);
-	const [rounds, setRounds] = useState(0);
+	const initialGuess = generateRandomBetween(1, 100, userChoice);
+	const [pastGuesses, setPastGuesses] = useState<number[]>([initialGuess]);
+	const [currentGuess, setCurrentGuess] = useState(initialGuess);
 
 	const currentLow = useRef(1);
 	const currentHigh = useRef(100);
 
 	useEffect(() => {
 		if (currentGuess === userChoice) {
-			gameOver(rounds);
+			gameOver(pastGuesses.length);
 		}
 	}, [currentGuess, userChoice, gameOver]);
 
@@ -69,7 +68,7 @@ const GameScreen: React.FunctionComponent<GameScreenProps> = ({
 			currentGuess
 		);
 		setCurrentGuess(nextNumber);
-		setRounds((currentRounds) => currentRounds + 1);
+		setPastGuesses((currentPastGuesses) => [nextNumber, ...currentPastGuesses]);
 	};
 
 	return (
@@ -84,6 +83,13 @@ const GameScreen: React.FunctionComponent<GameScreenProps> = ({
 					<Ionicons name="md-add" size={24} color="white" />
 				</MainButton>
 			</Card>
+			<ScrollView>
+				{pastGuesses.map((guess, index) => (
+					<View key={index}>
+						<Text>{guess}</Text>
+					</View>
+				))}
+			</ScrollView>
 		</View>
 	);
 };
