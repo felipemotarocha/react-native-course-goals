@@ -1,5 +1,13 @@
 import React, { useState, useRef, useEffect } from "react";
-import { View, StyleSheet, Alert, ScrollView, Text } from "react-native";
+import {
+	View,
+	StyleSheet,
+	Alert,
+	ScrollView,
+	Text,
+	FlatList,
+	Dimensions,
+} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 import Card from "../components/Card";
@@ -22,7 +30,7 @@ const generateRandomBetween: any = (
 	}
 };
 
-const renderListItem = (value: number, rounds: number) => (
+const renderListItem = (value: number, rounds: any) => (
 	<View key={value} style={styles.listItem}>
 		<BodyText>#{rounds}</BodyText>
 		<BodyText>{value}</BodyText>
@@ -116,7 +124,7 @@ const styles = StyleSheet.create({
 		maxWidth: "80%",
 	},
 	listContainer: {
-		width: "80%",
+		width: Dimensions.get("window").width > 350 ? "60%" : "80%",
 		flex: 1,
 	},
 	listContent: {
