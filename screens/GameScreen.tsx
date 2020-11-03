@@ -49,9 +49,25 @@ const GameScreen: React.FunctionComponent<GameScreenProps> = ({
 	const initialGuess = generateRandomBetween(1, 100, userChoice);
 	const [pastGuesses, setPastGuesses] = useState<number[]>([initialGuess]);
 	const [currentGuess, setCurrentGuess] = useState(initialGuess);
+	const [availableDeviceHeight, setAvailableDeviceHeight] = useState(
+		Dimensions.get("window").height
+	);
+	const [availableDeviceWidth, setAvailableDeviceWidth] = useState(
+		Dimensions.get("window").width
+	);
 
 	const currentLow = useRef(1);
 	const currentHigh = useRef(100);
+
+	useEffect(() => {
+		const updateLayout = () => {
+			setAvailableDeviceHeight(Dimensions.get("window").height);
+			setAvailableDeviceWidth(Dimensions.get("window").width);
+		};
+		Dimensions.addEventListener("change", updateLayout);
+
+		return () => Dimensions.removeEventListener("change", updateLayout);
+	});
 
 	useEffect(() => {
 		if (currentGuess === userChoice) {
@@ -85,6 +101,31 @@ const GameScreen: React.FunctionComponent<GameScreenProps> = ({
 		setCurrentGuess(nextNumber);
 		setPastGuesses((currentPastGuesses) => [nextNumber, ...currentPastGuesses]);
 	};
+
+	if (availableDeviceHeight < 500) {
+		return (
+			<View style={styles.container}>
+				<BodyText>Opponent's guess:</BodyText>
+				<View style={styles.controls}>
+					<MainButton onPress={() => handleNextGuess("lower")}>
+						<Ionicons name="md-remove" size={24} color="white" />
+					</MainButton>
+					<NumberContainer>{currentGuess}</NumberContainer>
+					<MainButton onPress={() => handleNextGuess("greater")}>
+						<Ionicons name="md-add" size={24} color="white" />
+					</MainButton>
+				</View>
+
+				<View style={styles.listContainer}>
+					<ScrollView contentContainerStyle={styles.listContent}>
+						{pastGuesses.map((guess, index) =>
+							renderListItem(guess, pastGuesses.length - index)
+						)}
+					</ScrollView>
+				</View>
+			</View>
+		);
+	}
 
 	return (
 		<View style={styles.container}>
@@ -122,6 +163,12 @@ const styles = StyleSheet.create({
 		marginTop: 20,
 		width: 300,
 		maxWidth: "80%",
+	},
+	controls: {
+		flexDirection: "row",
+		justifyContent: "space-around",
+		width: "80%",
+		alignItems: "center",
 	},
 	listContainer: {
 		width: Dimensions.get("window").width > 350 ? "60%" : "80%",
