@@ -171,7 +171,7 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 	},
 	listContainer: {
-		width: Dimensions.get("window").width > 350 ? "60%" : "80%",
+		width: "80%",
 		flex: 1,
 	},
 	listContent: {
@@ -187,7 +187,7 @@ const styles = StyleSheet.create({
 		backgroundColor: "#FFFFFF",
 		flexDirection: "row",
 		justifyContent: "space-around",
-		width: "60%",
+		width: "100%",
 	},
 });
 

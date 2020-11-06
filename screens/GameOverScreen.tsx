@@ -26,7 +26,7 @@ const GameOverScreen: React.FunctionComponent<GameOverScreenProps> = ({
 	restart,
 }) => {
 	return (
-		<ScrollView>
+		<ScrollView contentContainerStyle={styles.scrollView}>
 			<View style={styles.container}>
 				<TitleText>The game is over!</TitleText>
 				<View style={styles.imageContainer}>
@@ -58,6 +58,7 @@ const styles = StyleSheet.create({
 		justifyContent: "center",
 		alignItems: "center",
 		paddingVertical: 10,
+		height: Dimensions.get("window").height - 90,
 	},
 	imageContainer: {
 		width: Dimensions.get("window").width * 0.7,
