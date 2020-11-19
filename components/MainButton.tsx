@@ -5,6 +5,8 @@ import {
 	StyleSheet,
 	TouchableOpacity,
 	GestureResponderEvent,
+	TouchableNativeFeedback,
+	Platform,
 } from "react-native";
 
 import colors from "../constants/colors";
@@ -18,16 +20,27 @@ const MainButton: React.FunctionComponent<MainButtonProps> = ({
 	children,
 	onPress,
 }) => {
+	let ButtonComponent: any = TouchableOpacity;
+
+	if (Platform.OS === "android" && Platform.Version >= 21) {
+		ButtonComponent = TouchableNativeFeedback;
+	}
 	return (
-		<TouchableOpacity onPress={onPress} activeOpacity={0.6}>
-			<View style={styles.container}>
-				<Text style={styles.text}>{children}</Text>
-			</View>
-		</TouchableOpacity>
+		<View style={styles.buttonContainer}>
+			<ButtonComponent onPress={onPress} activeOpacity={0.6}>
+				<View style={styles.container}>
+					<Text style={styles.text}>{children}</Text>
+				</View>
+			</ButtonComponent>
+		</View>
 	);
 };
 
 const styles = StyleSheet.create({
+	buttonContainer: {
+		borderRadius: 8,
+		overflow: "hidden",
+	},
 	container: {
 		backgroundColor: colors.primary,
 		paddingVertical: 10,

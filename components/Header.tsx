@@ -9,22 +9,35 @@ export interface HeaderProps {
 
 const Header: React.FunctionComponent<HeaderProps> = ({ title }) => {
 	return (
-		<View style={styles.container}>
+		<View
+			style={{
+				...styles.headerBase,
+				...Platform.select({
+					ios: styles.headerIos,
+					android: styles.headerAndroid,
+				}),
+			}}
+		>
 			<TitleText style={styles.title}>{title}</TitleText>
 		</View>
 	);
 };
 
 const styles = StyleSheet.create({
-	container: {
+	headerBase: {
 		width: "100%",
 		height: 90,
 		paddingTop: 36,
-		backgroundColor: Platform.OS === "android" ? colors.primary : "white",
 		alignItems: "center",
 		justifyContent: "center",
-		borderBottomColor: Platform.OS === "ios" ? "#CCCCCC" : "transparent",
-		borderBottomWidth: Platform.OS === "ios" ? 1 : 0,
+	},
+	headerIos: {
+		backgroundColor: "white",
+		borderBottomColor: "#CCCCCC",
+		borderBottomWidth: 1,
+	},
+	headerAndroid: {
+		backgroundColor: colors.primary,
 	},
 	title: {
 		color: Platform.OS === "ios" ? colors.primary : "white",
